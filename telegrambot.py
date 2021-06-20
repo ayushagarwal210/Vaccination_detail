@@ -1,6 +1,7 @@
 import re
 import django
 import os
+import datetime
 os.environ['DJANGO_SETTINGS_MODULE'] = 'vaccination.settings'
 django.setup()
 
@@ -9,7 +10,7 @@ from home.models import *
 from telegram.ext import *
 
 API_KEY = '1841445657:AAHl5aYttd-W9WiT2_WfYWnRvvzfqosoJ4w'
-
+current_date = datetime.date.today().strftime('%d-%m-%Y')
 
 def isValidPinCode(pinCode):
 
@@ -40,11 +41,11 @@ def handle_message(update, context):
 
     if num_there(text):
         if isValidPinCode(text):
-            cowin_objs = CowinData.objects.filter(pincode=text)
+            cowin_objs = CowinData.objects.filter(pincode=text,created_at=current_date)
 
             if not cowin_objs.exists():
                 get_cowin_data_by_pincode(text)
-                cowin_objs = CowinData.objects.filter(pincode=text)
+                cowin_objs = CowinData.objects.filter(pincode=text,created_at=current_date)
 
             message = f"""Total '{cowin_objs.count()}' slots found in you pincode \n\n"""
 

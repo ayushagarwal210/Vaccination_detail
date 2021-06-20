@@ -16,7 +16,7 @@ class CowinData(models.Model):
     min_age_limit = models.IntegerField(default=45)
     vaccine = models.CharField(max_length=100)
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.CharField(max_length=100)
     updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

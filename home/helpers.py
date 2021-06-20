@@ -25,6 +25,7 @@ def get_cowin_data_by_pincode(pincode):
                         'available_capacity_dose2'),
                     min_age_limit=session.get('min_age_limit'),
                     vaccine=session.get('vaccine'),
+                    created_at=session.get('date'),
                 )
 
     except Exception as e:
